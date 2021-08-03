@@ -1,13 +1,11 @@
 # CODECOMMIT REPOSITORY
 resource "aws_codecommit_repository" "repo" {
-  repository_name = "my-repo"
-  default_branch  = "main"
-
+  repository_name = "${var.repo_name}"
 }
 
 # CODEBUILD
 resource "aws_codebuild_project" "repo-project" {
-  name          = "build-project"
+  name          = "${var.build_project}"
   service_role  = "${aws_iam_role.codebuild-role.arn}"
 
   artifacts {
@@ -53,8 +51,8 @@ resource "aws_codepipeline" "pipeline" {
       output_artifacts = [ "source_output" ]
 
       configuration = {
-        RepositoryName = "my-repo"
-        BranchName     = "main"
+        RepositoryName = "${var.repo_name}"
+        BranchName     = "${var.branch_name}"
       }
     }
   }

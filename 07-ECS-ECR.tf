@@ -20,7 +20,7 @@ resource "aws_ecs_task_definition" "task" {
   container_definitions = jsonencode([
     {
         name            = "flask-container"
-        image           = "940401905947.dkr.ecr.us-east-1.amazonaws.com/ecr-repo:latest" #URI
+        image           = "${var.uri_repo}:latest" #URI
         cpu             = 256
         memory          = 512       
         portMappings = [

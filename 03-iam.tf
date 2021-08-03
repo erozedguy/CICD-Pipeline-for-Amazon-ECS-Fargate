@@ -6,7 +6,6 @@ resource "aws_iam_role" "codebuild-role" {
       {
         Action = "sts:AssumeRole"
         Effect = "Allow"
-        Sid    = ""
         Principal = {
           Service = "codebuild.amazonaws.com"
         }
@@ -22,24 +21,15 @@ resource "aws_iam_role_policy" "codebuild-policy" {
       Version = "2012-10-17"
       Statement = [
         {
-          Sid      = "CodeCommitPolicy"
           Action   = ["codecommit:GitPull"]
           Effect   = "Allow"
           Resource = "*"
         },
         {
-          Sid      = "ECRPullPolicy"
           Action   = [
                       "ecr:BatchCheckLayerAvailability",
                       "ecr:GetDownloadUrlForLayer",
                       "ecr:BatchGetImage",
-                      "ecr:PutImage"]
-          Effect   = "Allow"
-          Resource = "*"
-        },
-        {
-          Sid      = "ECRAuthPolicy"
-          Action   = ["ecr:BatchCheckLayerAvailability",
                       "ecr:CompleteLayerUpload",
                       "ecr:GetAuthorizationToken",
                       "ecr:InitiateLayerUpload",
@@ -47,9 +37,8 @@ resource "aws_iam_role_policy" "codebuild-policy" {
                       "ecr:UploadLayerPart"]
           Effect   = "Allow"
           Resource = "*"
-        },
+        },        
         {
-          Sid      = "CloudWatchLogsPolicy",
           Action   = [
                       "logs:CreateLogGroup",
                       "logs:CreateLogStream",

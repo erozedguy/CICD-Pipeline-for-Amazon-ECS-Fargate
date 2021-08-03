@@ -16,13 +16,6 @@ resource "aws_lb_target_group" "tg-group" {
     
 }
 
-# resource "aws_lb_target_group_attachment" "attach-instance" {
-#   count             = 2
-#   target_group_arn  = aws_lb_target_group.tg-group.arn
-#   target_id         = "${element(split(",", join(",", aws_instance.my_instances[*].id)), count.index)}"
-#   port              = "5000"
-# }
-
 resource "aws_lb_listener" "lb-listener" {
   load_balancer_arn = "${aws_lb.app-lb.arn}"
   port              = "80"

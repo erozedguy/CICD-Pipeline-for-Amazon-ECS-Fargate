@@ -1,12 +1,14 @@
 from flask import Flask
-import flask
+import socket
 
 app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    ip_adress = flask.request.remote_addr
-    return f'Hello, from Flask in a Docker container! -----> Private IP: {ip_adress}'
+    host_name = socket.gethostname()
+    host_ip = socket.gethostbyname(host_name)
+
+    return f'Hello, from Flask in a Docker container! -----> Private IP: {host_ip} | Hostname: {host_name}'
 
 
 if __name__ == '__main__':
