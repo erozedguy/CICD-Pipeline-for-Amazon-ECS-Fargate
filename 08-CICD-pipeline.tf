@@ -69,7 +69,7 @@ resource "aws_codepipeline" "pipeline" {
       output_artifacts = [ "build_output" ]
 
       configuration = {
-        ProjectName = "build-project"
+        ProjectName = "${var.build_project}"
       }
     }
   }
