@@ -1,7 +1,7 @@
 resource "aws_security_group" "sg1" {
   name        = "flaskapp"
   description = "Port 5000"
-  vpc_id      = "${aws_vpc.ecs-vpc.id}"
+  vpc_id      = aws_vpc.ecs-vpc.id
 
   ingress {
     description      = "Allow Port 5000"
@@ -24,7 +24,7 @@ resource "aws_security_group" "sg1" {
 resource "aws_security_group" "sg2" {
   name        = "flaskapp-alb"
   description = "Port 80"
-  vpc_id      = "${aws_vpc.ecs-vpc.id}"
+  vpc_id      = aws_vpc.ecs-vpc.id
 
   ingress {
     description      = "Allow Port 80"

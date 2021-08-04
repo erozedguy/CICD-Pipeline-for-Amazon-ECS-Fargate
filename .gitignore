@@ -5,7 +5,7 @@
 *.tfstate
 *.tfstate.*
 *.terraform.*
-
+uri.txt
 # Crash log files
 crash.log
 

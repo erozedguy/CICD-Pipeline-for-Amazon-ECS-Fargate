@@ -1,12 +1,12 @@
 # CODECOMMIT REPOSITORY
 resource "aws_codecommit_repository" "repo" {
-  repository_name = "${var.repo_name}"
+  repository_name = var.repo_name
 }
 
 # CODEBUILD
 resource "aws_codebuild_project" "repo-project" {
-  name          = "${var.build_project}"
-  service_role  = "${aws_iam_role.codebuild-role.arn}"
+  name         = var.build_project
+  service_role = aws_iam_role.codebuild-role.arn
 
   artifacts {
     type = "NO_ARTIFACTS"
@@ -14,7 +14,7 @@ resource "aws_codebuild_project" "repo-project" {
 
   source {
     type     = "CODECOMMIT"
-    location = "${aws_codecommit_repository.repo.clone_url_http}"
+    location = aws_codecommit_repository.repo.clone_url_http
   }
 
   environment {
@@ -32,23 +32,23 @@ resource "aws_s3_bucket" "bucket-artifact" {
 
 # CODEPIPELINE
 resource "aws_codepipeline" "pipeline" {
-  name      = "pipeline"
-  role_arn  = "${data.aws_iam_role.pipeline_role.arn}"
+  name     = "pipeline"
+  role_arn = data.aws_iam_role.pipeline_role.arn
 
   artifact_store {
-    location  = "${aws_s3_bucket.bucket-artifact.bucket}"
-    type      = "S3"
+    location = aws_s3_bucket.bucket-artifact.bucket
+    type     = "S3"
   }
   # SOURCE
   stage {
     name = "Source"
     action {
-      name      = "Source"
-      category  = "Source"
-      owner     = "AWS"
-      provider  = "CodeCommit" 
-      version   = "1"
-      output_artifacts = [ "source_output" ]
+      name             = "Source"
+      category         = "Source"
+      owner            = "AWS"
+      provider         = "CodeCommit"
+      version          = "1"
+      output_artifacts = ["source_output"]
 
       configuration = {
         RepositoryName = "${var.repo_name}"
@@ -60,13 +60,13 @@ resource "aws_codepipeline" "pipeline" {
   stage {
     name = "Build"
     action {
-      name      = "Build"
-      category  = "Build"
-      owner     = "AWS"
-      provider  = "CodeBuild" 
-      version   = "1"
-      input_artifacts = [ "source_output" ]
-      output_artifacts = [ "build_output" ]
+      name             = "Build"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      version          = "1"
+      input_artifacts  = ["source_output"]
+      output_artifacts = ["build_output"]
 
       configuration = {
         ProjectName = "${var.build_project}"
@@ -77,12 +77,12 @@ resource "aws_codepipeline" "pipeline" {
   stage {
     name = "Deploy"
     action {
-      name      = "Deploy"
-      category  = "Deploy"
-      owner     = "AWS"
-      provider  = "ECS" 
-      version   = "1"
-      input_artifacts = [ "build_output" ]
+      name            = "Deploy"
+      category        = "Deploy"
+      owner           = "AWS"
+      provider        = "ECS"
+      version         = "1"
+      input_artifacts = ["build_output"]
 
       configuration = {
         ClusterName = "clusterDev"

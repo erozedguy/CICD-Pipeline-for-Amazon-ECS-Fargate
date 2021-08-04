@@ -3,5 +3,5 @@ data "aws_iam_role" "pipeline_role" {
 }
 
 data "aws_iam_role" "ecs-task" {
-  name  = "ecsTaskExecutionRole"
+  name = "ecsTaskExecutionRole"
 }
