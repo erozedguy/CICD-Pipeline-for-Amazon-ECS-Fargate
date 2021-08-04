@@ -3,4 +3,4 @@ Creation of CI/CD pipeline for Amazon ECS/Fargate
 
 # Arquitectura
 
-![asg](assets/CICD-Pipeline.png)
+![asg](assets/Pipeline.png)
