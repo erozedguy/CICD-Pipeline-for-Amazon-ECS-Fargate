@@ -1,5 +1,5 @@
 resource "aws_security_group" "sg1" {
-  name        = "flaskapp"
+  name        = "golang-server"
   description = "Port 5000"
   vpc_id      = aws_vpc.ecs-vpc.id
 
@@ -22,7 +22,7 @@ resource "aws_security_group" "sg1" {
 }
 
 resource "aws_security_group" "sg2" {
-  name        = "flaskapp-alb"
+  name        = "golang-server-alb"
   description = "Port 80"
   vpc_id      = aws_vpc.ecs-vpc.id
 

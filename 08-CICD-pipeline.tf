@@ -86,7 +86,7 @@ resource "aws_codepipeline" "pipeline" {
 
       configuration = {
         ClusterName = "clusterDev"
-        ServiceName = "Flask-Service"
+        ServiceName = "golang-Service"
         FileName    = "imagedefinitions.json"
       }
     }
