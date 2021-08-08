@@ -7,4 +7,4 @@ Creation of CI/CD pipeline for Amazon ECS/Fargate
 
 # More Information
 
-![https://dev.to/erozedguy/ci-cd-pipeline-for-amazon-ecs-fargate-with-terraform-33na](https://dev.to/erozedguy/ci-cd-pipeline-for-amazon-ecs-fargate-with-terraform-33na)
+https://dev.to/erozedguy/ci-cd-pipeline-for-amazon-ecs-fargate-with-terraform-33na
