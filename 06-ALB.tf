@@ -11,18 +11,18 @@ resource "aws_lb_target_group" "tg-group" {
   name        = "tg-group"
   port        = "5000"
   protocol    = "HTTP"
-  vpc_id      = aws_vpc.ecs-vpc.id
+  vpc_id      = "${aws_vpc.ecs-vpc.id}"
   target_type = "ip"
 
 }
 
 resource "aws_lb_listener" "lb-listener" {
-  load_balancer_arn = aws_lb.app-lb.arn
+  load_balancer_arn = "${aws_lb.app-lb.arn}"
   port              = "80"
   protocol          = "HTTP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.tg-group.arn
+    target_group_arn = "${aws_lb_target_group.tg-group.arn}"
   }
 }

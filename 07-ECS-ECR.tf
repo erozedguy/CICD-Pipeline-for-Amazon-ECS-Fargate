@@ -15,7 +15,7 @@ resource "aws_ecs_task_definition" "task" {
   requires_compatibilities = ["FARGATE"]
   cpu                      = 256
   memory                   = 512
-  execution_role_arn       = data.aws_iam_role.ecs-task.arn
+  execution_role_arn       = "${data.aws_iam_role.ecs-task.arn}"
 
   container_definitions = jsonencode([
     {
@@ -35,8 +35,8 @@ resource "aws_ecs_task_definition" "task" {
 # ECS SERVICE
 resource "aws_ecs_service" "svc" {
   name            = "golang-Service"
-  cluster         = aws_ecs_cluster.ecs-cluster.id
-  task_definition = aws_ecs_task_definition.task.id
+  cluster         = "${aws_ecs_cluster.ecs-cluster.id}"
+  task_definition = "${aws_ecs_task_definition.task.id}"
   desired_count   = 2
   launch_type     = "FARGATE"
 
@@ -48,10 +48,8 @@ resource "aws_ecs_service" "svc" {
   }
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.tg-group.arn
+    target_group_arn = "${aws_lb_target_group.tg-group.arn}"
     container_name   = "golang-container"
     container_port   = "5000"
   }
-
-
 }

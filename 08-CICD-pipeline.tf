@@ -5,8 +5,8 @@ resource "aws_codecommit_repository" "repo" {
 
 # CODEBUILD
 resource "aws_codebuild_project" "repo-project" {
-  name         = var.build_project
-  service_role = aws_iam_role.codebuild-role.arn
+  name         = "${var.build_project}"
+  service_role = "${aws_iam_role.codebuild-role.arn}"
 
   artifacts {
     type = "NO_ARTIFACTS"
@@ -14,7 +14,7 @@ resource "aws_codebuild_project" "repo-project" {
 
   source {
     type     = "CODECOMMIT"
-    location = aws_codecommit_repository.repo.clone_url_http
+    location = "${aws_codecommit_repository.repo.clone_url_http}"
   }
 
   environment {
@@ -33,10 +33,10 @@ resource "aws_s3_bucket" "bucket-artifact" {
 # CODEPIPELINE
 resource "aws_codepipeline" "pipeline" {
   name     = "pipeline"
-  role_arn = data.aws_iam_role.pipeline_role.arn
+  role_arn = "${data.aws_iam_role.pipeline_role.arn}"
 
   artifact_store {
-    location = aws_s3_bucket.bucket-artifact.bucket
+    location = "${aws_s3_bucket.bucket-artifact.bucket}"
     type     = "S3"
   }
   # SOURCE
